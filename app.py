@@ -5,7 +5,7 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 
 app = Flask(__name__)
 
-raulobot = ChatBot("Chatterbot", 
+raulobot = ChatBot("Chatterbot",
                    storage_adapter="chatterbot.storage.SQLStorageAdapter",
                    logic_adapters=[
         {
