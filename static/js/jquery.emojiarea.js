@@ -368,7 +368,28 @@
       return self.onChange.apply(self, [ e ]);
     });
     /* ! MODIFICATION END */
-
+    //Modificado por Raul
+    this.$editor.on("keydown", function(e) {
+      if(e.which == 13) {
+        //var rawText = $("#botTextArea").text();
+        var rawText = $("#textInput").val();
+        if (rawText == '') {
+          rawText = $("#botTextArea").text();
+        }
+        var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+        $("#textInput").val("");
+        $("#botTextArea").text("");
+        $("#chatbox").append(userHtml);
+        document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+        $.get("/get", { msg: rawText }).done(function(data) {
+        var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+        $("#chatbox").append(botHtml);
+        document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          });
+      }
+    }
+    );
+    // Fin modificación
     this.$editor.on('mousedown focus', function() {
       document.execCommand('enableObjectResizing', false, false);
     });

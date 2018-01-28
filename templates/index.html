@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="RauloBot - un asistente inteligente de consultoría en JDE">
     <meta name="author" content="Raul e Lopez Briega">
-    <link rel="shortcut icon" href="/static/favicon.png">
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="shortcut icon" href="/static/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  <link href="/static/emoji.css" rel="stylesheet">
+  <link href="/static/css/emoji.css" rel="stylesheet">
   <title>RauloBot - Asistente inteligente</title>
   </head>
   <body>
@@ -33,10 +33,10 @@
     </div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/static/config.js"></script>
-  <script src="/static/util.js"></script>
-  <script src="/static/jquery.emojiarea.js"></script>
-  <script src="/static/emoji-picker.js"></script>
+  <script src="/static/js/config.js"></script>
+  <script src="/static/js/util.js"></script>
+  <script src="/static/js/jquery.emojiarea.js"></script>
+  <script src="/static/js/emoji-picker.js"></script>
   <script>
       $(function() {
         // Initializes and creates emoji set from sprite sheet
@@ -57,7 +57,6 @@
           var rawText = $("#textInput").val();
           var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
           $("#textInput").val("");
-          $("#botTextArea").text("");
           $("#chatbox").append(userHtml);
           document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
           $.get("/get", { msg: rawText }).done(function(data) {
@@ -73,6 +72,7 @@
         });
         $("#buttonInput").click(function() {
           getBotResponse();
+          $("#botTextArea").text("");
         })
   </script>
 </html>
