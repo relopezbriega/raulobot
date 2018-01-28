@@ -5,7 +5,9 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 
 app = Flask(__name__)
 
-raulobot = ChatBot("Chatterbot",
+default_response="""
+En mis blogs están todas las respuestas! <a href='https://relopezbriega.github.io/' target='_blank'>https://relopezbriega.github.io/</a> - <a href='http://relopezbriega.com.ar/' target='_blank'>http://relopezbriega.com.ar/</a> - <a href='https://iaarbook.github.io/' target='_blank'>https://iaarbook.github.io/</a>"""
+raulobot = ChatBot("Chatterbot", 
                    storage_adapter="chatterbot.storage.SQLStorageAdapter",
                    logic_adapters=[
         {
@@ -14,7 +16,7 @@ raulobot = ChatBot("Chatterbot",
         {
             'import_path': 'chatterbot.logic.LowConfidenceAdapter',
             'threshold': 0.65,
-            'default_response': 'En mis blogs están todas las respuestas! https://relopezbriega.github.io/ - http://relopezbriega.com.ar/ - https://iaarbook.github.io/'
+            'default_response': default_response
         }
     ],)
 

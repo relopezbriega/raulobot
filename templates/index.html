@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="RauloBot - un asistente inteligente de consultoría en JDE">
+    <meta name="author" content="Raul e Lopez Briega">
+    <link rel="shortcut icon" href="/static/favicon.png">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link href="/static/emoji.css" rel="stylesheet">
+  <title>RauloBot - Asistente inteligente</title>
   </head>
   <body>
     <h1>RauloBot</h1>
@@ -11,15 +20,44 @@
       <div id="chatbox">
         <p class="botText"><span>Hola, soy RauloBot!.</span></p>
       </div>
-      <div id="userInput">
-        <input id="textInput" type="text" name="msg" placeholder="Mensaje">
-        <input id="buttonInput" type="submit" value="Enviar">
+      <div id="userInput" class="row justify-content-center">
+        <div class="col-10">
+          <div class="text-left">
+            <p class="lead emoji-picker-container">
+              <input id="textInput" type="text" name="msg" class="form-control" placeholder="Mensaje" data-emojiable="true">
+              <input id="buttonInput" type="submit" value="Enviar">
+            </p>
+          </div>
+        </div>
       </div>
-      <script>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/static/config.js"></script>
+  <script src="/static/util.js"></script>
+  <script src="/static/jquery.emojiarea.js"></script>
+  <script src="/static/emoji-picker.js"></script>
+  <script>
+      $(function() {
+        // Initializes and creates emoji set from sprite sheet
+        window.emojiPicker = new EmojiPicker({
+          emojiable_selector: '[data-emojiable=true]',
+          assetsPath: '/static/img',
+          spriteSheetPath:'/static/img',
+          popupButtonClasses: 'fa fa-smile-o'
+        });
+        // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+        // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+        // It can be called as many times as necessary; previously converted input fields will not be converted again
+        window.emojiPicker.discover();
+      });
+  </script>
+  <script>
         function getBotResponse() {
           var rawText = $("#textInput").val();
           var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
           $("#textInput").val("");
+          $("#botTextArea").text("");
           $("#chatbox").append(userHtml);
           document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
           $.get("/get", { msg: rawText }).done(function(data) {
@@ -36,7 +74,5 @@
         $("#buttonInput").click(function() {
           getBotResponse();
         })
-      </script>
-    </div>
-  </body>
+  </script>
 </html>
