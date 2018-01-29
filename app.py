@@ -21,7 +21,6 @@ raulobot = ChatBot("Chatterbot",
     ],)
 
 raulobot.set_trainer(ChatterBotCorpusTrainer)
-#raulobot.train("chatterbot.corpus.english")
 raulobot.train("chatterbot.corpus.spanish")
 
 
